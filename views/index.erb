@@ -1,0 +1,18 @@
+<html>
+  <body>
+        <form action="/" method="post">
+          <input type="text" name="word">
+          <input type="submit">
+        </form>
+        <table>
+    <% @tangos.each do |tango| %>
+      <%= puts @tango.class %>
+        <tr>
+          <td><%= tango.id %></td>
+          <td><%= tango.word %></td>
+          <td><%= tango.mean1 %></td>
+        </tr>
+      <% end %>
+      </table>
+  </body>
+</html>
