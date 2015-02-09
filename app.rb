@@ -56,4 +56,18 @@ post '/' do
   redirect '/'
 end
 
-puts get_Japanese_mean("hello")
+# 削除ボタン
+get '/delete/:id' do
+  @d_tango = Tango.find(params[:id])
+  erb :delete
+end
+
+post '/delete/:id' do
+  word = Tango.find(params[:id])
+  word.destroy
+  redirect '/'
+end
+
+
+# herokuへのアップロード
+
