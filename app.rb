@@ -62,6 +62,7 @@ get '/delete/:id' do
   erb :delete
 end
 
+# キャンセルボタンを押してもレコードが削除されちゃう
 post '/delete/:id' do
   word = Tango.find(params[:id])
   word.destroy
