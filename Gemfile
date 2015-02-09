@@ -9,7 +9,7 @@ gem 'nokogiri'
 
   gem 'pg'
 
-  gem 'sqlite3'
+#  gem 'sqlite3'
   gem "sinatra-reloader"
   gem "foreman"
 
