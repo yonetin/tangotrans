@@ -6,10 +6,10 @@ gem 'activerecord'
 gem "sinatra-activerecord", :require => "sinatra/activerecord"
 gem 'rake'
 gem 'nokogiri'
+gem 'heroku'
 
   gem 'pg'
 
-#  gem 'sqlite3'
   gem "sinatra-reloader"
   gem "foreman"
 
