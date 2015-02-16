@@ -12,11 +12,11 @@ require 'nokogiri'
 
 # herokuへのアップロード時にコメント化した
 #
-#ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
+ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
 #ActiveRecord::Base.establish_connection('development')
 
 # heroku postgresqlの接続用コード
-ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'])
+ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'] || 'development')
 
 #use ActiveRecord::ConnectionAdapters::ConnectionManagement
 #run Sinatra::Application
