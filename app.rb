@@ -11,8 +11,11 @@ require 'open-uri'
 require 'nokogiri'
 
 
-ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
-ActiveRecord::Base.establish_connection('development')
+#ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
+#ActiveRecord::Base.establish_connection('development')
+
+use ActiveRecord::ConnectionAdapters::ConnectionManagement
+run Sinatra::Application
 
 class Tango < ActiveRecord::Base
 end
