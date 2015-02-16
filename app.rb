@@ -18,8 +18,8 @@ require 'nokogiri'
 # heroku postgresqlの接続用コード
 ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'])
 
-use ActiveRecord::ConnectionAdapters::ConnectionManagement
-run Sinatra::Application
+#use ActiveRecord::ConnectionAdapters::ConnectionManagement
+#run Sinatra::Application
 
 class Tango < ActiveRecord::Base
 end
