@@ -11,11 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150207065926) do
+ActiveRecord::Schema.define(version: 20150217030637) do
+
+  create_table "contents", force: :cascade do |t|
+    t.text "content"
+  end
 
   create_table "tangos", force: :cascade do |t|
     t.text "word"
     t.text "mean1"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.text "user"
+    t.text "password"
   end
 
 end
