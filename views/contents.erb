@@ -1,9 +1,52 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Translated view</title>
+  <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+</head>
 
 <table>
   <% @counters.each do |k,v| %>
     <tr><td><%= k %></td></td>
     <td><%= v %></td>
+    <td>
+      <div>
+        <form>
+          <input type="hidden" id="word" value="<%= "#{k}" %>"/>
+          <input id="translate-word" type="button" value="翻訳する"/>
+        </form>
+    </div>
+
+    </td>
   <% end %>
   </tr>
-
 </table>
+
+<table>
+  <%= @content_tangos.class %>
+  <% @content_tangos.each do |t| %> <tr>
+    <td><%= t.word %></td></td>
+    <td><%= t.mean1 %></td>
+  <% end %>
+  </tr>
+</table>
+
+
+
+<script type="text/javascript">
+      function escapeHTML(s) {
+        return $('<div>').text(s).html();
+      }
+$(function(){
+    $("#translate-word").click(function(){
+      var word = $("#word").val();
+      if(word.length == 0) word = "no word";
+      var request = $.ajax({
+          type: "POST",
+          url: "/translate",
+          data: {
+            word: word
+            }
+            });
+            });
+        });
+</script>

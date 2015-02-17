@@ -9,15 +9,15 @@ require 'kconv'
 require 'uri'
 require 'open-uri'
 require 'nokogiri'
+require 'json'
 
 # herokuへのアップロード時にコメント化した
-#
-#ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
+ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
 #ActiveRecord::Base.establish_connection('development')
 
 # heroku postgresqlの接続用コード
-# ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'] || 'development')
-ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'])
+ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'] || 'development')
+# ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'])
 
 
 # heroku postgresqlの接続用コード ローカル利用時のコード同居させた
@@ -72,6 +72,7 @@ end
 
 get '/' do
   @tangos = Tango.all
+  puts "tango ======= #{@tangos}"
   @contents = Content.all
   erb :index
 end
@@ -110,10 +111,18 @@ end
 
 # 単語数をカウントするページを作成する
 get '/content/:id' do
+  @content_tangos = Tango.all
   contents = Content.find(params[:id]).content
   @counters = word_sum(contents)
   @counters = @counters.sort_by { |k,v| -v }
+  @id = params[:id]
   erb :contents
 end
 
+post '/translate' do
+  tangos = Tango.new
+  tangos.word = params[:word]
+  tangos.mean1 = get_Japanese_mean(tangos.word)
+  tangos.save
+end
 
