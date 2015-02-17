@@ -107,6 +107,7 @@ end
 get '/content/:id' do
   contents = Content.find(params[:id]).content
   @counters = word_sum(contents)
+  @counters = @counters.sort_by { |k,v| -v }
   erb :contents
 end
 

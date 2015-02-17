@@ -7,11 +7,9 @@
 
         <table>
     <% @contents.each do |content| %>
-        <tr>
-          <td><%=  %></td>
-          <td><%= content.content %></td>
-          <td><a href="/content/<%= content.id %>">文字数カウント</a></td>
-        </tr>
+      <tr><td><%= content.content[0,200] %></td>
+      <td><a href="/content/<%= content.id %>">文字数カウント</a></td>
+      </tr>
       <% end %>
     </table>
  
