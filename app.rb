@@ -20,10 +20,8 @@ ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
 ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'])
 
 
-=======
 # heroku postgresqlの接続用コード ローカル利用時のコード同居させた
 ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'] || 'development')
->>>>>>> word_conut
 
 #use ActiveRecord::ConnectionAdapters::ConnectionManagement
 #run Sinatra::Application
