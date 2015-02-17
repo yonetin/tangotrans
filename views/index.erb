@@ -1,19 +1,17 @@
 <html>
   <body>
         <form action="/" method="post">
-          <input type="text" name="word">
+          <input type="text" name="content">
           <input type="submit">
         </form>
+
         <table>
-    <% @tangos.each do |tango| %>
-      <%= puts @tango.class %>
-        <tr>
-          <td><%=  %></td>
-          <td><%= tango.word %></td>
-          <td><%= tango.mean1 %></td>
-          <td><a href="/delete/<%="#{tango.id}"%>" >削除</a><td>
-        </tr>
+    <% @contents.each do |content| %>
+      <tr><td><%= content.content[0,200] %></td>
+      <td><a href="/content/<%= content.id %>">文字数カウント</a></td>
+      </tr>
       <% end %>
-      </table>
+    </table>
+ 
   </body>
 </html>
