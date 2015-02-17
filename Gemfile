@@ -14,4 +14,6 @@ gem 'heroku'
   gem "sinatra-reloader"
   gem "foreman"
 
-gem 'sqlite3'
+group :development do 
+  gem 'sqlite3'
+end
