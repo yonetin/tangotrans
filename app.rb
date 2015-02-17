@@ -12,7 +12,7 @@ require 'nokogiri'
 
 # herokuへのアップロード時にコメント化した
 #
-ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
+#ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
 #ActiveRecord::Base.establish_connection('development')
 
 # heroku postgresqlの接続用コード
