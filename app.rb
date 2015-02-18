@@ -13,7 +13,7 @@ require 'json'
 
 # herokuへのアップロード時にコメント化した
 ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
-#ActiveRecord::Base.establish_connection('development')
+# ActiveRecord::Base.establish_connection('development')
 
 # heroku postgresqlの接続用コード
 ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yYm_vKQ2YTxYODK90lD@ec2-107-21-93-97.compute-1.amazonaws.com:5432/d8esrjg5rn2qde'] || 'development')
@@ -70,6 +70,11 @@ def word_sum(words)
   return w
 end
 
+# 定冠詞及び不定詞等の文字列を削除するメソッド
+def define_word(words)
+end
+
+
 get '/' do
   @tangos = Tango.all
   puts "tango ======= #{@tangos}"
@@ -121,6 +126,7 @@ end
 
 post '/translate' do
   tangos = Tango.new
+  puts "word ============================= #{params[:word]}"
   tangos.word = params[:word]
   tangos.mean1 = get_Japanese_mean(tangos.word)
   tangos.save
