@@ -59,14 +59,10 @@ def word_sum(words)
   a = []
   w = {}
   a = words.split(" ")
-  puts a
-
   a.each do |a|
     w["#{a}"] == nil unless w["#{a}"] = w["#{a}"].to_i + 1
   end
 
-  puts "w ============ #{w.class}"
-  
   return w
 end
 
@@ -77,7 +73,6 @@ end
 
 get '/' do
   @tangos = Tango.all
-  puts "tango ======= #{@tangos}"
   @contents = Content.all
   erb :index
 end
@@ -125,10 +120,13 @@ get '/content/:id' do
 end
 
 post '/translate' do
-  tangos = Tango.new
-  puts "word ============================= #{params[:word]}"
-  tangos.word = params[:word]
-  tangos.mean1 = get_Japanese_mean(tangos.word)
-  tangos.save
+  ary = params[:content]
+  ary.each do |content|
+    tangos = Tango.new
+    tangos.word = content
+    tangos.mean1 = get_Japanese_mean(content)
+    tangos.save
+  end
+  redirect '/'
 end
 
