@@ -1,17 +1,47 @@
 <html>
-  <body>
+    <div class="container">
+      <div class="span9">
         <form action="/" method="post">
-          <input type="text" name="content">
-          <input type="submit">
-        </form>
-
-        <table>
-    <% @contents.each do |content| %>
-      <tr><td><%= content.content[0,200] %></td>
-      <td><a href="/content/<%= content.id %>">文字数カウント</a></td>
-      </tr>
-      <% end %>
-    </table>
- 
+          <table>
+          <tr>
+            <td><label for="title">Title of English Text:</td>
+              <td><input type="text" name="title" class="span2" placeholder="Title" id="title">
+                </td></label></tr>
+          <tr><td><label for="content">English Text:</td>
+              <td><textarea id="content"type="text" name="content" class="span5"style="width:500px;height:140px" placeholder="Please Enter the English">
+                  </textarea>
+                </td></label></tr>
+                <tr>
+                  <td><label for="btn">Resiter:</td>
+                    <td><input id="btn" type="submit" class="btn" value="To Resister">
+                      </td></label>
+        </tr>
+        </table>
+          </br>
+          </form>
+        </table>
+      </div>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Content (200 to character)</th>
+              <th>Translate</th>
+              <th>Reading</th>
+              </tr>
+            </thead>
+            <% @contents.each do |content| %>
+              <tr>
+                <td><%= content.title %></td>
+                <td><%= content.content[0,200] %></td>
+                <td><a href="/content/<%= content.id %>">Translate</a></td>
+                <td><a href="/reading/<%= content.id %>">Let's Read!!</a></td>
+              </tr>
+            <% end %>
+          
+          </table>
+    </div>
   </body>
 </html>

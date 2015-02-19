@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20150217030637) do
 
   create_table "contents", force: :cascade do |t|
+    t.text "title"
     t.text "content"
   end
 

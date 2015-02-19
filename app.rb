@@ -87,9 +87,11 @@ end
 post '/' do
   @tango = @params[:word]
   @words = @params[:content]
+  @title = @params[:title]
   
   content = Content.new
   content.content = @words
+  content.title = @title
   content.save
   # box = Tango.new
   # box.word = @tango
@@ -124,7 +126,7 @@ get '/content/:id' do
   # c = Content.new(:content => "words")
   # tango = c.tangos.new(:word => "sample")
   # tango.save
-  erb :contents
+  erb :contents ,:layout => :layout 
 end
 
 post '/translate' do
@@ -142,10 +144,19 @@ post '/translate' do
     # tangos.save
     
     # contentsに対して単語を登録する
-    @content.tangos.new(:word => content)
-    @content.tangos.new(:mean1 => get_Japanese_mean(content))
+    @content.tangos.new(:word => content , :mean1 => get_Japanese_mean(content))
     @content.save
   end
-  redirect "/content/#{id}"
+  redirect "/reading/#{id}"
 end
 
+get '/reading/:id' do
+  @texts = Content.find(params[:id])
+  @do_not_know_word = Tango.where(:content_id => "#{params[:id]}")
+
+  erb :reading
+end
+
+get '/about' do
+  erb :about
+end
