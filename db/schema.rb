@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 20150217030637) do
   end
 
   create_table "tangos", force: :cascade do |t|
-    t.text "word"
-    t.text "mean1"
+    t.integer "contents_id"
+    t.integer "content_id"
+    t.text    "word"
+    t.text    "mean1"
   end
 
   create_table "users", force: :cascade do |t|

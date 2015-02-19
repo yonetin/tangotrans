@@ -6,6 +6,7 @@
 
 <form action="/translate" method="post">
   <input type="submit" value="translate">
+  <input type="hidden" value="<%= @id %>" name="id">
 <table>
   <% @counters.each do |k,v| %>
     <tr><td><%= k %></td></td>
@@ -20,7 +21,6 @@
 </table>
 </form>
 <table>
-  <%= @content_tangos.class %>
   <% @content_tangos.each do |t| %> <tr>
     <td><%= t.word %></td></td>
     <td><%= t.mean1 %></td>

@@ -10,6 +10,7 @@ require 'uri'
 require 'open-uri'
 require 'nokogiri'
 require 'json'
+require './public/word/wordList.rb'
 
 # herokuへのアップロード時にコメント化した
 ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
@@ -27,12 +28,14 @@ ActiveRecord::Base.establish_connection(ENV['postgres://sdezcgxojqsddd:tMzk-k8yY
 #run Sinatra::Application
 
 class Tango < ActiveRecord::Base
+  belongs_to :content
 end
 
 class User < ActiveRecord::Base
 end
 
 class Content < ActiveRecord::Base
+  has_many :tangos
 end
 
 # 入力された単語の意味を調べるメソッド
@@ -93,7 +96,7 @@ post '/' do
   # mean = get_Japanese_mean(@tango)
   # box.mean1 = "#{mean}"
   # box.save
-  redirect '/'
+  redirect "/content/#{content.id}"
 end
 
 # 削除ボタン
@@ -111,22 +114,38 @@ end
 
 # 単語数をカウントするページを作成する
 get '/content/:id' do
-  @content_tangos = Tango.all
-  contents = Content.find(params[:id]).content
+  @content_tangos = Tango.where(:content_id => "#{params[:id]}")
+  @content = Content.find(params[:id])
+  contents = @content.content
   @counters = word_sum(contents)
   @counters = @counters.sort_by { |k,v| -v }
-  @id = params[:id]
+  @id = params[:id].to_i
+
+  # c = Content.new(:content => "words")
+  # tango = c.tangos.new(:word => "sample")
+  # tango.save
   erb :contents
 end
 
 post '/translate' do
+  # 翻訳対象の単語をArray形式で渡す
   ary = params[:content]
+  id = params[:id]
+  @content = Content.find(id)
+  puts "id and content ==================#{id}   #{@content}"
+  
   ary.each do |content|
-    tangos = Tango.new
-    tangos.word = content
-    tangos.mean1 = get_Japanese_mean(content)
-    tangos.save
+    # 翻訳する単語の保存機能のテスト
+    # tangos = Tango.new
+    # tangos.word = content
+    # tangos.mean1 = get_Japanese_mean(content)
+    # tangos.save
+    
+    # contentsに対して単語を登録する
+    @content.tangos.new(:word => content)
+    @content.tangos.new(:mean1 => get_Japanese_mean(content))
+    @content.save
   end
-  redirect '/'
+  redirect "/content/#{id}"
 end
 
